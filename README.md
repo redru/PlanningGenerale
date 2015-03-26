@@ -1,0 +1,3 @@
+# PlanningGenerale
+
+Applicazione Planning Generale
