@@ -1,0 +1,119 @@
+.planning {
+	width: 96%;
+	padding: 1%;
+	margin: 1%;
+	
+	border: 1px solid;
+	border-radius: 8px;
+}
+
+.planning .totals .interno {
+	padding: 1% 0% 0% 0%;
+	width: 9%;
+	margin-right: 1%;
+
+	float: left;
+}
+
+.planning .totals .esterno {
+	padding: 1% 0% 0% 0%;
+	width: 15%;
+}
+
+.totals label {
+	width: 10%;
+	float: left;
+}
+
+.totals input {
+	margin: 1% 0% 0% 0%;
+	width: 4.75%;
+	height: 13px;
+	float: left;
+}
+
+#selectedDate {
+	margin-left: 3%;
+}
+
+.day {
+	width: 2.5%;
+	
+	text-align: center;
+
+	border: 1px solid;
+
+	float: left;
+}
+
+/******* DAYWORK STATES *********/
+.dayBlue {
+	background-color: blue;
+}
+
+.dayWhite {
+	background-color: gray;
+}
+
+.dayWhite:enabled {
+	background-color: white;
+}
+
+.dayGreenYellow {
+	background-color: GreenYellow;
+}
+
+.dayNotEnabled {
+	background-color: gray;
+}
+/********************************/
+
+.loader {
+	width: 1%;
+	
+	position: relative;
+	top: 3px;
+	left: 5px;
+	
+	display: none;
+}
+
+.deleteButton {
+	width: 1%;
+	
+	position: relative;
+	top: 3px;
+	left: 5px;
+}
+
+.deleteButton:hover {
+	cursor: pointer;
+}
+
+.spacer15 {
+	float: left;
+
+	width: 15%;
+}
+
+.cellPersonale {
+	width: 2.5%;
+	height: 17px;
+	text-align: center;
+	font-weight: bold;
+	margin-top: 1%;
+	border: 1px solid;
+	float: left;
+}
+
+.cellPersonaleInterno {
+	background-color: Aqua;
+}
+
+.cellPersonaleEsterno {
+	background-color: LightSalmon;
+}
+
+.redText {
+	color: red;
+}
