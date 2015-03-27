@@ -32,7 +32,7 @@ var DB = {
 			method: 'POST',
 			data: { id: params.id, value: params.value, period: params.period, project: params.project },
 			dataType: 'html',
-			complete: saveSuccess
+			complete: commonCompleteCallback
 		});
 	},
 	
@@ -44,7 +44,7 @@ var DB = {
 			method: 'POST',
 			data: { value: params.value, period: params.period, planning: params.planning },
 			dataType: 'html',
-			complete: savePlanningSuccess
+			complete: commonCompleteCallback
 		});
 	},
 	
@@ -56,7 +56,7 @@ var DB = {
 			method: 'POST',
 			data: { id: params.id },
 			dataType: 'html',
-			complete: deleteRowSuccess
+			complete: commonCompleteCallback
 		});
 	},
 	
@@ -110,20 +110,12 @@ function loadPlanningSuccess(response, status) {
 	DB.load(params);
 }
 
-function saveSuccess(response, status) {
-	changeLoaderState(false);
-}
-
-function savePlanningSuccess(response, status) {
-	changeLoaderState(false);
-}
-
-function deleteRowSuccess(response, status) {
-	changeLoaderState(false);
-}
-
 function deleteProjectSuccess(response, status) {
 	changeLoaderState(false);
 	
 	loadPeriod();
+}
+
+function commonCompleteCallback(response, status) {
+	changeLoaderState(false);
 }
