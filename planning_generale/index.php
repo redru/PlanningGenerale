@@ -7,6 +7,7 @@
 
 	<script src="lib/jquery-1.11.2/jquery-1.11.2.min.js"></script>
 	<script src="js/planning-scripts.js"></script>
+	<script src="js/error.js"></script>
 	<script src="js/db-functions.js"></script>
 
 	<title>Planning Generale</title>
@@ -40,11 +41,13 @@
 		</select>
 		<img class="loader" src="resources/ajax-loader.gif"/>
 		
+		<div id="top-error-area" class="error-area float-right width-50x100"></div>
+		
 		<br><br>
 <!---------------------------------------------------------------------------->
 		<label><strong>PM</strong></label>
 		<div id="pm" class="planning">
-			<label class='spacer15'><strong>-------------</strong></label>
+			<label class='spacer-15'><strong>-------------</strong></label>
 			<?php
 				for ($x = 1; $x <= 31; $x++) {
 					echo "<div class='day'>" . $x . "</div>";
@@ -75,7 +78,7 @@
 <!---------------------------------------------------------------------------->
 		<label><strong>DESIGN</strong></label>
 		<div id="design" class="planning">
-			<label class='spacer15'><strong>-------------</strong></label>
+			<label class='spacer-15'><strong>-------------</strong></label>
 			<?php
 				for ($x = 1; $x <= 31; $x++) {
 					echo "<div id='" . $x . "' class='day'>" . $x . "</div>";
@@ -106,7 +109,7 @@
 <!---------------------------------------------------------------------------->
 		<label><strong>CAS</strong></label>
 		<div id="cas" class="planning">
-			<label class='spacer15'><strong>-------------</strong></label>
+			<label class='spacer-15'><strong>-------------</strong></label>
 			<?php
 				for ($x = 1; $x <= 31; $x++) {
 					echo "<div id='" . $x . "' class='day'>" . $x . "</div>";
@@ -137,7 +140,7 @@
 <!---------------------------------------------------------------------------->
 		<label><strong>FRESA</strong></label>
 		<div id="fresa" class="planning">
-			<label class='spacer15'><strong>-------------</strong></label>
+			<label class='spacer-15'><strong>-------------</strong></label>
 			<?php
 				for ($x = 1; $x <= 31; $x++) {
 					echo "<div id='" . $x . "' class='day'>" . $x . "</div>";
@@ -168,7 +171,7 @@
 <!---------------------------------------------------------------------------->
 		<label><strong>MODELLERIA</strong></label>
 		<div id="modelleria" class="planning">
-			<label class='spacer15'><strong>-------------</strong></label>
+			<label class='spacer-15'><strong>-------------</strong></label>
 			<?php
 				for ($x = 1; $x <= 31; $x++) {
 					echo "<div id='" . $x . "' class='day'>" . $x . "</div>";
@@ -199,7 +202,7 @@
 <!---------------------------------------------------------------------------->
 		<label><strong>VERNICIATURA</strong></label>
 		<div id="verniciatura" class="planning">
-			<label class='spacer15'><strong>-------------</strong></label>
+			<label class='spacer-15'><strong>-------------</strong></label>
 			<?php
 				for ($x = 1; $x <= 31; $x++) {
 					echo "<div id='" . $x . "' class='day'>" . $x . "</div>";
