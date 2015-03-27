@@ -7,7 +7,7 @@ var month31 = [ 1, 3, 5, 7, 8, 10, 12 ];
 var specialCharacters = [ '/', '\\', '\'', '"', '.', '-', '(', ')', '!', '?', '#', '@', '$', '%', '&', '=', '*', '^', ',', ';', ':', '{', '}', '+', '[', ']'];
 
 /**
- * document ready function
+ * Document ready function
  */
 $(document).ready(function() {
 	// Set todays date
@@ -18,8 +18,9 @@ $(document).ready(function() {
 	$('.inputPersonale').focusout(focusOutInputPersonale);
 	$('.inputPersonale').focusin(focusInInputPersonale);
 
-	var params = {};
-	params.period = $('#monthSelect').val() + $('#yearSelect').val();
+	var params = {
+		period : $('#monthSelect').val() + $('#yearSelect').val()
+	};
 	
 	DB.loadPlanning(params);
 });
@@ -32,8 +33,9 @@ function loadPeriod() {
 	cleanData();
 
 	// Prepare params for query
-	var params = {};
-	params.period = $('#monthSelect').val() + $('#yearSelect').val();
+	var params = {
+		period : $('#monthSelect').val() + $('#yearSelect').val()
+	};
 	
 	DB.loadPlanning(params);
 	DB.load(params);
@@ -104,11 +106,13 @@ function changeDayWorkStateAndSave() {
 		}
 		
 		// Prepare params for the update
-		var params = {};
-		params.id = $(this).attr('id');
-		params.value = $(this).val();
-		params.period = $('#monthSelect').val() + $('#yearSelect').val();
-		params.project = $(this).parent().attr('id');
+		var params = {
+			id : $(this).attr('id'),
+			value : $(this).val(),
+			period : $('#monthSelect').val() + $('#yearSelect').val(),
+			project : $(this).parent().attr('id')
+			
+		};
 		
 		// INSERT if the value is different from '', else DELETE
 		if ($(this).val() != '') {
@@ -189,10 +193,8 @@ function focusOutInputPersonale() {
 function calculate(obj) {
 	if (typeof obj == 'undefined') {
 		$('.planning').each(function (index) {
-			debugger;
 			// Calculate for each input of the first project
 			$(this).find('.projectList').first().find('.daywork').each(function (index) {
-				debugger;
 				calculateSingleColumn(this);
 			});
 		});
@@ -205,7 +207,6 @@ function calculate(obj) {
  * Calculates the 'PERSONALE' values
  */
 function calculateSingleColumn(obj) {
-	debugger;
 	var result = 0;
 	var idWrap = extractId( $(obj).attr('id') );
 	var projList = $(obj).parent().parent();
@@ -247,24 +248,32 @@ function calculateSingleColumn(obj) {
  * Add new project to the grid
  */
 function addProject() {
-	if (!projectExists($("#newProject").val())) {
+	var newProjectComp = $("#newProject");
+	var monthSelect = $("#monthSelect");
+	var yearSelect = $("#yearSelect");
+	Error.hideErrorMessage($("#top-error-area"));
+	
+	if ( containsSpecialCharacters(newProjectComp.val()) ) {
+		Error.showErrorMessage($("#top-error-area"), "Non sono ammessi caratteri speciali ad eccezione di _");
+		newProjectComp.focus();
+	} else if (!projectExists(newProjectComp.val())) {
 		// Trim the input string
-		$("#newProject").val($("#newProject").val().trim());
+		newProjectComp.val(newProjectComp.val().trim());
 		// Remove all white spaces
-		$("#newProject").val($("#newProject").val().replace(/ /g, ""));
+		newProjectComp.val(newProjectComp.val().replace(/ /g, ""));
 		
-		$("#newProject").val( removeSpecialCharacters( $("#newProject").val() ) )
+		newProjectComp.val( removeSpecialCharacters( newProjectComp.val() ) )
 		
 		// Check if input is empty
-		if ($("#newProject").val()) {
+		if (newProjectComp.val()) {
 		
 			// Execute for all lists
 			$(".projectList").each(function (index) {
 				var tmp = "";
 				
-				tmp = tmp.concat("<div id='" + $("#newProject").val() + "' class='project'>");
+				tmp = tmp.concat("<div id='" + newProjectComp.val() + "' class='project'>");
 				// Set project name
-				tmp = tmp.concat("<label class='spacer15'>" + $("#newProject").val() + "</label>");
+				tmp = tmp.concat("<label class='spacer-15'>" + newProjectComp.val() + "</label>");
 				
 				// Set all the days input
 				for (var i = 1; i <= 31; i++) {
@@ -277,10 +286,10 @@ function addProject() {
 						state = 'disabled';
 					}
 					
-					tmp = tmp.concat("<input type='number' " + state + " id='" + $("#monthSelect").val() + $("#yearSelect").val() + "-" + $(this).parent().attr("id") + "-" + $("#newProject").val() + "-" + i + "' class='day daywork dayWhite'></input>");
+					tmp = tmp.concat("<input type='number' " + state + " id='" + monthSelect.val() + yearSelect.val() + "-" + $(this).parent().attr("id") + "-" + newProjectComp.val() + "-" + i + "' class='day daywork dayWhite'></input>");
 				}
 				
-				tmp = tmp.concat('<img src="resources/delete_icon.png" class="deleteButton" onclick="deleteProject(\'' + $("#newProject").val() + '\')" />');
+				tmp = tmp.concat('<img src="resources/delete_icon.png" class="deleteButton" onclick="deleteProject(\'' + newProjectComp.val() + '\')" />');
 				tmp = tmp.concat("</div>");
 				
 				$(this).append(tmp);
@@ -291,10 +300,10 @@ function addProject() {
 			$(".daywork").focusin(dayWorkFocusIn);
 		
 			// Reset new project value
-			$("#newProject").val("");
+			newProjectComp.val("");
 		}
 	} else {
-		$("#newProject").focus();
+		newProjectComp.focus();
 	}
 }
 
@@ -367,4 +376,21 @@ function removeSpecialCharacters(str) {
 	}
 	
 	return str;
+}
+
+/**
+ * Look for special characters
+ * - 'true' if a character is found
+ * - 'false' if any special character was found
+ */
+function containsSpecialCharacters(str) {
+	var found = false;
+	
+	for (var idx = 0; idx < specialCharacters.length; idx++) {
+		if (str.indexOf(specialCharacters[idx]) != -1) {
+			found = true;
+		}
+	}
+	
+	return found;
 }
